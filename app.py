@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from models import setup_db, db_drop_and_create_all, Trip, Flight, Accommodation
-from auth import requires_auth
+from auth import requires_auth, AuthError
 
 def create_app(test_config=None):
 
@@ -73,6 +73,68 @@ def create_app(test_config=None):
 
         except:
             abort(422)
+
+
+    ## Error Handling
+
+    @app.errorhandler(422)
+    def unprocessable(error):
+        return jsonify({
+                        "success": False, 
+                        "error": 422,
+                        "message": "unprocessable"
+                        }), 422
+
+    @app.errorhandler(404)
+    def unprocessable(error):
+        return jsonify({
+                        "success": False, 
+                        "error": 404,
+                        "message": "not found"
+                        }), 404
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            'success': False,
+            'error': 400,
+            'message': 'Bad request'
+        }), 400
+
+    @app.errorhandler(405)
+    def method_not_allowed(error):
+        return jsonify({
+            'success': False,
+            'error': 405,
+            'message': 'Method not allowed'
+        }), 405
+
+    @app.errorhandler(500)
+    def method_not_allowed(error):
+        return jsonify({
+            'success': False,
+            'error': 500,
+            'message': 'Internal Server Error'
+        }), 500
+
+    @app.errorhandler(403)
+    def method_not_allowed(error):
+        return jsonify({
+            'success': False,
+            'error': 403,
+            'message': 'Forbidden'
+        }), 403
+
+    '''
+    error handler for AuthError
+    '''
+    @app.errorhandler(AuthError)
+    def handle_auth_error(error):
+        return jsonify({
+            "success": False,
+            "error": error.status_code,
+            "message": error.error.code
+            }), error.status_code
 
 
 
