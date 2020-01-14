@@ -37,6 +37,17 @@ def create_app(test_config=None):
             })
 
 
+    @app.route('/flights/<int:flight_id>')
+    @requires_auth('read:flight-details')
+    def get_flight_details(jwt, flight_id):
+        flight = Flight.query.get(flight_id)
+
+        return jsonify({
+            'success': True,
+            'flight': flight.format()
+            })
+
+
 
     return app
 
