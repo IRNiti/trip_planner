@@ -19,6 +19,7 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
         return response
 
+    # this needs to be modified
     @app.route('/')
     def get_greeting():
         greeting = "Hello" 
@@ -46,6 +47,32 @@ def create_app(test_config=None):
             'success': True,
             'flight': flight.format()
             })
+
+    # create flight
+    @app.route('/flights', methods=['POST'])
+    @requires_auth('create:flight')
+    def create_flight(jwt):
+        body = request.get_json()
+        origin = body.get('origin', None)
+        destination = body.get('destination', None)
+        time = body.get('time', None)
+        booked = body.get('booked', None)
+        trip = body.get('trip', None)
+
+        if(origin is None or destination is None or trip is None or origin == '' or destination == '' or trip == ''):
+            abort(400)
+
+        try:
+            new_flight = Flight(origin=origin, destination=destination, time=time, booked=booked, trip=trip)
+            new_flight.insert()
+
+            return jsonify({
+                'success': True,
+                'trip_id': new_flight.id
+                })
+
+        except:
+            abort(422)
 
 
 
