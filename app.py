@@ -75,6 +75,34 @@ def create_app(test_config=None):
             abort(422)
 
 
+    # update flight
+    # can only update time or booked fields
+    @app.route('/flights/<int:flight_id>', methods=['PATCH'])
+    @requires_auth('update:flight')
+    def update_flight(jwt, flight_id):
+        flight = Flight.query.get(flight_id)
+
+        if(flight is None):
+            abort(404)
+
+        body = request.get_json()
+        time = body.get('time', None)
+        booked = body.get('booked', None)
+
+        if(time is not None and time != ''):
+            flight.time = time
+        if(booked is not None and booked != ''):
+            flight.booked = booked
+
+        flight.update()
+
+        return jsonify({
+            'success': True,
+            'flight': flight.format()
+            })
+        
+
+
     ## Error Handling
 
     @app.errorhandler(422)
