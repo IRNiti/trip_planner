@@ -1,7 +1,8 @@
 import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
-from models import setup_db, db_drop_and_create_all
+from models import setup_db, db_drop_and_create_all, Trip, Flight, Accommodation
+from auth import requires_auth
 
 def create_app(test_config=None):
 
@@ -22,6 +23,20 @@ def create_app(test_config=None):
     def get_greeting():
         greeting = "Hello" 
         return greeting
+
+
+    @app.route('/trips')
+    @requires_auth('read:trip')
+    def get_trips(jwt):
+        trips = Trip.query.all()
+        formatted_trips = [trip.format() for trip in trips]
+
+        return jsonify({
+            'success': True,
+            'trips': formatted_trips
+            })
+
+
 
     return app
 
