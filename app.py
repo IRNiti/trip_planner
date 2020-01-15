@@ -100,6 +100,25 @@ def create_app(test_config=None):
             'success': True,
             'flight': flight.format()
             })
+
+    # delete trip
+    @app.route('/trips/<int:trip_id>', methods=['DELETE'])
+    @requires_auth('delete:trip')
+    def delete_trip(jwt, trip_id):
+        trip = Trip.query.get(trip_id)
+
+        if(trip is None):
+            abort(404)
+
+        try:
+            trip.delete()
+
+            return jsonify({
+                'success': True,
+                'trip_id': trip_id
+                })
+        except:
+            abort(422)
         
 
 

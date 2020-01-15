@@ -31,8 +31,8 @@ class Trip(db.Model):
   name = Column(String)
   start_date = Column(Date)
   end_date = Column(Date)
-  flights = db.relationship('Flight', backref=db.backref('flights', lazy=True))
-  accomodations = db.relationship('Accommodation', backref=db.backref('accommodations', lazy=True))
+  flights = db.relationship('Flight', cascade='all,delete-orphan', backref=db.backref('flights', lazy=True, cascade='all'))
+  accomodations = db.relationship('Accommodation', cascade='all,delete-orphan', backref=db.backref('accommodations', lazy=True, cascade='all'))
 
   def insert(self):
     db.session.add(self)
