@@ -6,9 +6,9 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-#AUTH0_DOMAIN = 'udacity-trip-planner.auth0.com'
-#ALGORITHMS = ['RS256']
-#API_AUDIENCE = 'trips'
+# AUTH0_DOMAIN = 'udacity-trip-planner.auth0.com'
+# ALGORITHMS = ['RS256']
+# API_AUDIENCE = 'trips'
 
 AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
 ALGORITHMS = os.environ['ALGORITHMS']
