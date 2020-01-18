@@ -48,6 +48,32 @@ def create_app(test_config=None):
             'flight': flight.format()
             })
 
+
+    # create trip
+    # cannot create trip with empty name field
+    @app.route('/trips', methods=['POST'])
+    @requires_auth('create:trip')
+    def create_trip(jwt):
+        body = request.get_json()
+        name = body.get('name', None)
+        start_date = body.get('start_date', None)
+        end_date = body.get('end_date', None)
+
+        if(name is None or name == ''):
+            abort(400)
+
+        try:
+            new_trip = Trip(name=name, start_date=start_date, end_date=end_date)
+            new_trip.insert()
+
+            return jsonify({
+                'success': True,
+                'trip_id': new_trip.id
+                })
+        except:
+            abort(422)
+
+
     # create flight
     @app.route('/flights', methods=['POST'])
     @requires_auth('create:flight')
@@ -68,7 +94,7 @@ def create_app(test_config=None):
 
             return jsonify({
                 'success': True,
-                'trip_id': new_flight.id
+                'flight_id': new_flight.id
                 })
 
         except:
