@@ -43,6 +43,9 @@ def create_app(test_config=None):
     def get_flight_details(jwt, flight_id):
         flight = Flight.query.get(flight_id)
 
+        if(flight is None):
+            abort(404)
+
         return jsonify({
             'success': True,
             'flight': flight.format()
