@@ -52,6 +52,17 @@ Then set up the environment variables by running from the project folder
 source ./setup.sh
 ```
 
+Set up the database by running
+
+```bash
+dropdb trip
+createdb trip
+psql trip < trip.psql
+python manage.py db upgrade
+```
+
+You can omit the dropdb command the first time you set up the database.
+
 Finally, to run the server, execute:
 
 ```bash
