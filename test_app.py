@@ -5,7 +5,7 @@ import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 from app import create_app
-from models import setup_db, db_drop_and_create_all, Trip, Flight, Accommodation
+from models import setup_db, Trip, Flight, Accommodation
 
 token = os.environ['TEST_TOKEN']
 
@@ -18,7 +18,6 @@ class PlannerTestCase(unittest.TestCase):
         self.client = self.app.test_client
         self.database_path = os.environ['DATABASE_TEST_URL']
         setup_db(self.app, self.database_path)
-        #db_drop_and_create_all()
 
         # binds the app to the current context
         with self.app.app_context():

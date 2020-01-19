@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
-from models import setup_db, db_drop_and_create_all, Trip, Flight, Accommodation
+from models import setup_db, Trip, Flight, Accommodation
 from auth import requires_auth, AuthError
 
 def create_app(test_config=None):
