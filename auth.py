@@ -97,6 +97,7 @@ code based on Udacity class lecture on Authentication and Authorization
 '''
 def verify_decode_jwt(token):
     # GET THE PUBLIC KEY FROM AUTH0
+    print(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
 
