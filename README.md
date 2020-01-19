@@ -58,7 +58,6 @@ Set up the database by running
 dropdb trip
 createdb trip
 psql trip < trip.psql
-python manage.py db upgrade
 ```
 
 You can omit the dropdb command the first time you set up the database.
@@ -71,9 +70,7 @@ python app.py
 
 ### Testing
 
-#### Unit Tests
-
-To run the tests, in the project folder run
+To run unit tests, in the project folder run
 
 ```
 dropdb trip_test
@@ -85,9 +82,46 @@ python test_app.py
 
 You can omit the dropdb command the first time you run the tests.
 
+## RBAC Reference
+
+### Overview
+
+Access is handled by Auth0 configuration where 2 roles have been defined: User and Planner.
+
+#### User role
+
+The user role only has view access for trips, flights and accommodation as defined by the following permissions:
+
+* read:accommodation
+* read:accommodation-details
+* read:flight
+* read:flight-details
+* read:trip
+
+#### Planner role
+
+The planner role has full access and can view, create, update and delete any records as defined by the following permissions:
+
+* read:accommodation
+* read:accommodation-details
+* read:flight
+* read:flight-details
+* read:trip
+* create:accommodation
+* create:flight
+* create:trip
+* delete:accommodations
+* delete:flight
+* delete:trip
+* update:accommodation
+* update:flight
+* update:trip
+
 #### RBAC Tests
 
-Two roles have been created in Auth0 to control access to this application: User and Planner. Users can only view trips, flights and accommodation. Planners have full access and can view, create, update and delete any records. Tests have been provided in order to test the different levels of access for the application in Postman. To run the tests, import udacity-trip-planner.postman_collection.json in Postman and run the collection.
+Tests have been provided in order to test the different levels of access for the application in Postman with the live application endpoint. To run the tests, import udacity-trip-planner.postman_collection.json in Postman and run the collection. Authentication tokens are provided in the collection in order to allow proper RBAC verification. 
+
+Note: when running collection multiple times, ensure that routes requiring ids (patch, delete) reference records that still exist in the database.
 
 ## API Reference
 
