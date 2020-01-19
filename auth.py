@@ -102,6 +102,7 @@ def verify_decode_jwt(token):
     jwks = json.loads(jsonurl.read())
 
     # GET THE DATA IN THE TOKEN HEADER
+    print(token)
     unverified_header = jwt.get_unverified_header(token)
 
     # CHOOSE OUR KEY
