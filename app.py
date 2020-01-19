@@ -91,6 +91,10 @@ def create_app(test_config=None):
         if(origin is None or destination is None or trip is None or origin == '' or destination == '' or trip == ''):
             abort(400)
 
+        db_trip = Trip.query.get(trip)
+        if(db_trip is None):
+            abort(400)
+
         try:
             new_flight = Flight(origin=origin, destination=destination, time=time, booked=booked, trip=trip)
             new_flight.insert()
