@@ -46,7 +46,13 @@ psql trip < trip.psql
 
 From within the project directory first ensure you are working using your created virtual environment.
 
-To run the server, execute:
+Then set up the environment variables by running from the project folder
+
+```bash
+source ./setup.sh
+```
+
+Finally, to run the server, execute:
 
 ```bash
 python app.py
@@ -62,6 +68,7 @@ To run the tests, in the project folder run
 dropdb trip_test
 createdb trip_test
 psql trip_test < trip.psql
+source ./setup.sh
 python test_app.py
 ```
 
