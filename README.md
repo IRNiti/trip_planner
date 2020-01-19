@@ -93,19 +93,26 @@ Errors are returned as JSON objects in the following format
 
 The following error codes can be returned by the application along with the associated error message
 
-- 400: Bad request
-	   No permissions in payload
-	   Unable to parse authentication token
-	   Unable to find the appropriate key
-- 401: No Authorization in header
-	   Authorization malformed
-	   Incorrect claims. Please, check the audience and issuer
-- 403: Forbidden
-	   User does not have required permission
-- 404: Not found
-- 422: Could not process request
-- 405: Method not allowed
-- 500: Internal Server Error
+* 400
+	* Bad request
+	* No permissions in payload
+	* Unable to parse authentication token
+	* Unable to find the appropriate key
+* 401
+	* No Authorization in header
+	* Authorization malformed
+	* Incorrect claims. Please, check the audience and issuer
+* 403
+	* Forbidden
+	* User does not have required permission
+* 404
+	* Not found
+* 422
+	* Could not process request
+* 405
+	* Method not allowed
+* 500
+	* Internal Server Error
 
 ### Endpoints
 
