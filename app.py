@@ -162,7 +162,7 @@ def create_app(test_config=None):
         return jsonify({
                         "success": False, 
                         "error": 422,
-                        "message": "unprocessable"
+                        "message": "Could not process request"
                         }), 422
 
     @app.errorhandler(404)
@@ -170,7 +170,7 @@ def create_app(test_config=None):
         return jsonify({
                         "success": False, 
                         "error": 404,
-                        "message": "not found"
+                        "message": "Not found"
                         }), 404
 
     @app.errorhandler(400)
