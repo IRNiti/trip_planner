@@ -1,0 +1,556 @@
+{
+	"info": {
+		"_postman_id": "512f1f89-66f6-4921-9d5e-6960618a71b2",
+		"name": "udacity-trip-planner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "create trip",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a0fd334-8f77-4790-b41b-41ad47c9a2b5",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Australia\",\n\t\"start_date\": \"2020-01-22\",\n\t\"end_date\": \"2020-02-08\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/trips",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create flight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eff95e54-2111-4f65-a2f6-9ed61530bab1",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"origin\": \"Sydney\",\n\t\"destination\": \"San Francisco\",\n\t\"trip\": 1,\n\t\"time\": \"2020-02-08T21:40:00\",\n\t\"booked\": true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/flights",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get trips",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "34306e32-9758-4ff3-8ea3-d9f587debeee",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/trips",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get flight details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b4f365e9-7303-4ffa-ad91-6755291a7090",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/flights/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"flights",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update flight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88f18f93-a862-41b1-a456-43442d8c2927",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"time\": \"2020-01-21T22:00:00\",\n\t\"booked\": false\n}"
+						},
+						"url": {
+							"raw": "{{host}}/flights/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"flights",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete trip",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3aec9553-87f2-4d8d-afaf-3893aa714aa4",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/trips/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"trips",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for regular users",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFrSTNSak5GUWpoRlFUbEVNa1l5UkRjME9FTkVNVGRFT0RGRU1qYzBOakkxTURjNE5UWXdOdyJ9.eyJpc3MiOiJodHRwczovL3VkYWNpdHktdHJpcC1wbGFubmVyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZTFkM2NjYzBkOTI2NDBlOTY2Nzc5M2EiLCJhdWQiOiJ0cmlwcyIsImlhdCI6MTU3OTM5NTkxMywiZXhwIjoxNTc5NDgyMzEzLCJhenAiOiJ1WDJLMngyanBXM3Y0MWswVVZyVThkVTZnWkZ1ZUNycSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsicmVhZDphY2NvbW1vZGF0aW9uIiwicmVhZDphY2NvbW1vZGF0aW9uLWRldGFpbHMiLCJyZWFkOmZsaWdodCIsInJlYWQ6ZmxpZ2h0LWRldGFpbHMiLCJyZWFkOnRyaXAiXX0.yIMAVDSiexF6r3wqOPhdgc0R3_tklqbohvHVEMxakPna_sfIUNog85atyfVhbiCYjOiXLMmsB8HXf8ZLOgAEiKzMDFc_VCv80a-4Jz_jt9hyc4JrKqWp-gN0hbK7o6rMJSLFIjcVVmNViPKfpaCdseOsL6z7otpUyQ208Q_OVvejyIq2RarweWfnHjyH231lmwM3Adf6DXvdSm59FDImXZseCHdLWiA-Q6UaB2l1XqnP7_T7BSAXUuYEfDhoWQkZLMh3xIO1GZVb_t0d87KzGikqUkwfVHEEvlOvZlXFpSktxbYPnIfQ2byXjrIyn9kjzCYuA-_E4LF05BdOYmBzuQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9873d862-a4be-45b3-b084-25e59b0d701d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4b0be69-567a-44c0-b358-ab8b8bd99921",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Planner",
+			"item": [
+				{
+					"name": "create trip",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a0fd334-8f77-4790-b41b-41ad47c9a2b5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Australia\",\n\t\"start_date\": \"2020-01-22\",\n\t\"end_date\": \"2020-02-08\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/trips",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create flight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a0fd334-8f77-4790-b41b-41ad47c9a2b5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"origin\": \"Sydney\",\n\t\"destination\": \"San Francisco\",\n\t\"trip\": 1,\n\t\"time\": \"2020-02-08T21:40:00\",\n\t\"booked\": true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/flights",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get trips",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9301ef2-3f3d-4620-af6c-1de98534ef37",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/trips",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get flight details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "26561c0b-5a9c-45fc-95d9-ec8c254703ce",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/flights/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"flights",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update flight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d5d75b1-3bee-4e88-aa65-69557e51da1f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"time\": \"2020-01-21T22:00:00\",\n\t\"booked\": true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/flights/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"flights",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete trip",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3aec9553-87f2-4d8d-afaf-3893aa714aa4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/trips/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"trips",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for trip planners",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFrSTNSak5GUWpoRlFUbEVNa1l5UkRjME9FTkVNVGRFT0RGRU1qYzBOakkxTURjNE5UWXdOdyJ9.eyJpc3MiOiJodHRwczovL3VkYWNpdHktdHJpcC1wbGFubmVyLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZTFkZTFiZTdhYWM1OTBkMTI1NDEyMzUiLCJhdWQiOiJ0cmlwcyIsImlhdCI6MTU3OTM5Njc5MSwiZXhwIjoxNTc5NDgzMTkxLCJhenAiOiJ1WDJLMngyanBXM3Y0MWswVVZyVThkVTZnWkZ1ZUNycSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiY3JlYXRlOmFjY29tbW9kYXRpb24iLCJjcmVhdGU6ZmxpZ2h0IiwiY3JlYXRlOnRyaXAiLCJkZWxldGU6YWNjb21tb2RhdGlvbnMiLCJkZWxldGU6ZmxpZ2h0IiwiZGVsZXRlOnRyaXAiLCJyZWFkOmFjY29tbW9kYXRpb24iLCJyZWFkOmFjY29tbW9kYXRpb24tZGV0YWlscyIsInJlYWQ6ZmxpZ2h0IiwicmVhZDpmbGlnaHQtZGV0YWlscyIsInJlYWQ6dHJpcCIsInVwZGF0ZTphY2NvbW1vZGF0aW9uIiwidXBkYXRlOmZsaWdodCIsInVwZGF0ZTp0cmlwIl19.gLSwjxtKl_PYhTriGywmEfH5jTc69_qDSKHKkkieLHN7mUaBLEVlPEAchLANmJa6oXCQjZ3uytXQbdeMgTxZP8gdWaYx28ajv1-7qLcrnc9_P56bwdHMmpppg42QOyOQ3p8srbbxuUGVZHZUGks_Bav9Eqtz3boL9bgnfAWLsp9utjE8XsxPiFUNiKp_hINlLa7opW8msSJCB79PZtITw-rF0P4uJhSlBdllkqTxsF6VdD9jFeeNrWeB18iFsvnBFzV_HWeaORZ0RlvPWi7oPB9X3RPAECmk5hW-RuLJoib7s9jYtjqdPlecSD0F_d3lDfeTZ-YXIBVAqlJe43sc-w",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "508087d6-4441-42dc-abfe-b8d4410a7ff5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "89f5dc1c-9bb7-4f8a-8d24-149a4993a7d7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3be0b7de-0105-4069-93c8-e435f124ea3f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "10e94933-355b-469b-b8fd-b6f6964fc5bf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2f98eccf-270a-44ef-aa24-c3d87e13f68d",
+			"key": "host",
+			"value": "https://udacity-trip-planner.herokuapp.com",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
