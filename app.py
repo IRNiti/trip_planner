@@ -5,11 +5,9 @@ from models import setup_db, db_drop_and_create_all, Trip, Flight, Accommodation
 from auth import requires_auth, AuthError
 
 def create_app(test_config=None):
-
+    # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    #comment after first init since wipes the db clean
-    #db_drop_and_create_all()
     CORS(app)
 
     # CORS Headers
@@ -19,13 +17,19 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
         return response
 
-    # this needs to be modified
+    # Homepage placeholder until frontend is in place
     @app.route('/')
     def get_greeting():
-        greeting = "Hello" 
+        greeting = "Welcome to the Trip Planner app" 
         return greeting
 
+    ## ROUTES
 
+    '''
+    GET /trips
+        requires the 'read:trip' permission
+        returns status code 200 and json {'success': True, 'trips': trips} where trips is the list of trips
+    '''
     @app.route('/trips')
     @requires_auth('read:trip')
     def get_trips(jwt):
@@ -37,7 +41,13 @@ def create_app(test_config=None):
             'trips': formatted_trips
             })
 
-
+    '''
+    GET /flights/<int:flight_id>
+        where flight_id is the existing id in the database
+        requires the 'read:flight-details' permission
+        returns a 404 error if the flight_id is not found
+        if successful, returns status code 200 and the flight details in json format
+    '''
     @app.route('/flights/<int:flight_id>')
     @requires_auth('read:flight-details')
     def get_flight_details(jwt, flight_id):
@@ -51,9 +61,13 @@ def create_app(test_config=None):
             'flight': flight.format()
             })
 
-
-    # create trip
-    # cannot create trip with empty name field
+    '''
+    POST /trips
+        creates a new row in the trips table
+        requirest the 'create:trip' permission
+        the name field is required and route returns a 400 error if this field is missing
+        if successful, returns status code 200 and the id of the created trip
+    '''
     @app.route('/trips', methods=['POST'])
     @requires_auth('create:trip')
     def create_trip(jwt):
@@ -76,8 +90,14 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-
-    # create flight
+    '''
+    POST /flights
+        creates a new row in the flights table
+        requires the 'create:flight' permission
+        the origin, destination and trip fields are required and a 400 error will be thrown if any are missing
+        the trip field has to correspond to an existing id in the trips table, otherwise a 400 error is thrown
+        if successful, returns status code 200 and the id of the created flight
+    '''
     @app.route('/flights', methods=['POST'])
     @requires_auth('create:flight')
     def create_flight(jwt):
@@ -107,9 +127,14 @@ def create_app(test_config=None):
         except:
             abort(422)
 
-
-    # update flight
-    # can only update time or booked fields
+    '''
+    PATCH /flights/<int:flight_id>
+        where flight_id is the existing id in the database
+        updates time and booked fiels only for the given flight
+        requires the 'update:flight' permission
+        returns a 404 error if the flight_id is not found
+        if successful, returns status code 200 and the updated flight details in json format
+    '''
     @app.route('/flights/<int:flight_id>', methods=['PATCH'])
     @requires_auth('update:flight')
     def update_flight(jwt, flight_id):
@@ -134,7 +159,14 @@ def create_app(test_config=None):
             'flight': flight.format()
             })
 
-    # delete trip
+    '''
+    DELETE /trips/<int:trip_id>
+        where trip_id is the existing id in the database
+        deletes given trip from the database
+        requires the 'delete:trip' permission
+        returns a 404 error if the trip_id is not found
+        if successful, returns status code 200 and the id of the deleted trip
+    '''
     @app.route('/trips/<int:trip_id>', methods=['DELETE'])
     @requires_auth('delete:trip')
     def delete_trip(jwt, trip_id):

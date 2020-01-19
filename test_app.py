@@ -31,19 +31,21 @@ class PlannerTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    # test for GET /questions
+    # test for GET /trips
     def test_succesful_get_trips(self):
         res = self.client().get('/trips', headers={"Authorization": "Bearer "+token})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
 
+    # test for GET /trips
     def test_get_trips_no_auth(self):
         res = self.client().get('/trips')
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(data['success'], False)
 
+    # test for POST /trips
     def test_succesful_create_trip(self):
         body = {
             "name": "Australia",
@@ -56,6 +58,7 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['trip_id'])
 
+    # test for POST /trips
     def test_create_trip_no_name(self):
         body = {
             "start_date": "2020-01-22",
@@ -66,6 +69,7 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertEqual(data['success'], False)
 
+    # test for POST /flights
     def test_succesful_create_flight(self):
         body = {
             "origin": "Sydney",
@@ -80,6 +84,7 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['flight_id'])
 
+    # test for POST /flights
     def test_create_flight_inexistent_trip(self):
         body = {
             "origin": "Sydney",
@@ -93,6 +98,7 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertEqual(data['success'], False)
 
+    # test for GET /flights/<int:flight_id>
     def test_succesful_get_flight_details(self):
         res = self.client().get('/flights/1', headers={"Authorization": "Bearer "+token})
         data = json.loads(res.data)
@@ -100,12 +106,14 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['flight'])
 
+    # test for GET /flights/<int:flight_id>
     def test_get_flight_details_inexistent_flight(self):
         res = self.client().get('/flights/1000', headers={"Authorization": "Bearer "+token})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
 
+    # test for PATCH /flights/<int:flight_id>
     def test_succesful_update_flight(self):
         body = {
             "booked": False
@@ -116,6 +124,7 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['flight'])
 
+    # test for PATCH /flights/<int:flight_id>
     def test_update_inexistent_flight(self):
         body = {
             "booked": False
@@ -125,7 +134,7 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
 
-
+    # test for DELETE /trips/<int:trip_id>
     def test_succesful_delete_trip(self):
         to_delete = Trip.query.order_by(Trip.id.desc()).first()
         res = self.client().delete('/trips/'+str(to_delete.id), headers={"Authorization": "Bearer "+token})
@@ -134,13 +143,12 @@ class PlannerTestCase(unittest.TestCase):
         self.assertEqual(data['success'], True)
         self.assertTrue(data['trip_id'])
 
+    # test for DELETE /trips/<int:trip_id>
     def test_delete_inexistent_trip(self):
         res = self.client().delete('/trips/1000', headers={"Authorization": "Bearer "+token})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
-
-
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
